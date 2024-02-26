@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
 export default function UserModification() {
-    let allowPutRequest = true;
+    let allowPutRequest = false;
 
     const [successResponse, setSuccessResponse] = useState("");
     const [failureResponse, setFailureResonse] = useState("");
@@ -33,55 +33,49 @@ export default function UserModification() {
             confirmPassword: "",
         };
 
-        if (!formInput.username && !formInput.password) {
-            setFormError({
-                ...inputError,
-                username: "Enter valid username",
-                password: "Password should not be empty",
-            });
-            allowPutRequest = false;
-            return;
-        }
+        let errors = [];
 
         if (!formInput.username) {
-            setFormError({
-                ...inputError,
-                username: "Enter valid username",
-            });
-            allowPutRequest = false;
-            return;
+            errors.push("Enter valid username");
         }
-
-        if (formInput.confirmPassword !== formInput.password) {
-            setFormError({
-                ...inputError,
-                password: "Password and confirm password should be the same",
-                confirmPassword:
-                    "Password and confirm password should be the same",
-            });
-            allowPutRequest = false;
-            return;
-        }
-
         if (!formInput.password) {
-            setFormError({
-                ...inputError,
-                password: "Password should not be empty",
-            });
-            allowPutRequest = false;
-            return;
+            errors.push("Password should not be empty");
         }
-
         if (!formInput.confirmPassword) {
-            setFormError({
-                ...inputError,
-                confirmPassword: "Confirm Password should not be empty",
-            });
-            allowPutRequest = false;
-            return;
+            errors.push("Confirm Password should not be empty");
+        }
+        if (formInput.confirmPassword !== formInput.password) {
+            errors.push("Password and confirm password should be the same");
         }
 
-        setFormError(inputError);
+        if (errors.length >= 0) {
+            setFormError({
+                ...inputError,
+                username: errors.includes("Enter valid username")
+                    ? "Enter valid username"
+                    : "",
+
+                password: errors.includes("Password should not be empty")
+                    ? "Password should not be empty"
+                    : errors.includes(
+                            "Password and confirm password should be the same",
+                        )
+                      ? "Password and confirm password should be the same"
+                      : "",
+                confirmPassword: errors.includes(
+                    "Confirm Password should not be empty",
+                )
+                    ? "Confirm Password should not be empty"
+                    : errors.includes(
+                            "Password and confirm password should be the same",
+                        )
+                      ? "Password and confirm password should be the same"
+                      : "",
+            });
+        }
+
+        console.log(errors);
+        console.log(formError);
 
         async function updateUser() {
             const requestOptions = {
@@ -191,7 +185,9 @@ export default function UserModification() {
                             />
                         </div>
                         <p className="error-message text-red-600 text-sm font-medium">
-                            {formError.confirmPassword}
+                            {formError.confirmPassword
+                                ? formError.confirmPassword
+                                : ""}
                         </p>
                     </div>
                     <div
