@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "username": "john_doe",
+        "email": "john.doe@example.com",
+        "role": "admin",
+        "organization": "Tech Solutions Inc.",
+        "is_logged": true,
+        "last_connection": "2024-02-03T08:00:00Z",
+        "acceso_grupos": true,
+        "acceso_paquetes": false,
+        "acceso_vuelos": true
+    },
+    {
+        "id": 2,
+        "username": "emma_smith",
+        "email": "emma.smith@example.com",
+        "role": "employee",
+        "organization": "Data Innovations Ltd.",
+        "is_logged": false,
+        "last_connection": null,
+        "acceso_grupos": false,
+        "acceso_paquetes": true,
+        "acceso_vuelos": true
+    },
+    {
+        "id": 3,
+        "username": "david_miller",
+        "email": "david.miller@example.com",
+        "role": "manager",
+        "organization": "Global Marketing Group",
+        "is_logged": true,
+        "last_connection": "2024-02-03T10:30:00Z",
+        "acceso_grupos": true,
+        "acceso_paquetes": false,
+        "acceso_vuelos": true
+    },
+    {
+        "id": 4,
+        "username": "sarah_jones",
+        "email": "sarah.jones@example.com",
+        "role": "employee",
+        "organization": "InnovateTech Corp.",
+        "is_logged": true,
+        "last_connection": "2024-02-03T09:15:00Z",
+        "acceso_grupos": true,
+        "acceso_paquetes": false,
+        "acceso_vuelos": true
+    },
+    {
+        "id": 5,
+        "username": "robert_white",
+        "email": "robert.white@example.com",
+        "role": "admin",
+        "organization": "Tech Innovators Ltd.",
+        "is_logged": false,
+        "last_connection": null,
+        "acceso_grupos": false,
+        "acceso_paquetes": true,
+        "acceso_vuelos": false
+    },
+    {
+        "id": 6,
+        "username": "linda_morris",
+        "email": "linda.morris@example.com",
+        "role": "employee",
+        "organization": "Data Solutions Inc.",
+        "is_logged": true,
+        "last_connection": "2024-02-03T11:45:00Z",
+        "acceso_grupos": true,
+        "acceso_paquetes": true,
+        "acceso_vuelos": false
+    },
+    {
+        "id": 7,
+        "username": "george_hill",
+        "email": "george.hill@example.com",
+        "role": "manager",
+        "organization": "Global Innovations Group",
+        "is_logged": false,
+        "last_connection": null,
+        "acceso_grupos": true,
+        "acceso_paquetes": false,
+        "acceso_vuelos": true
+    },
+    {
+        "id": 8,
+        "username": "olivia_brown",
+        "email": "olivia.brown@example.com",
+        "role": "employee",
+        "organization": "Tech Solutions Inc.",
+        "is_logged": true,
+        "last_connection": "2024-02-03T10:00:00Z",
+        "acceso_grupos": false,
+        "acceso_paquetes": true,
+        "acceso_vuelos": true
+    },
+    {
+        "id": 9,
+        "username": "alex_martin",
+        "email": "alex.martin@example.com",
+        "role": "admin",
+        "organization": "Data Innovations Ltd.",
+        "is_logged": true,
+        "last_connection": "2024-02-03T12:15:00Z",
+        "acceso_grupos": true,
+        "acceso_paquetes": false,
+        "acceso_vuelos": true
+    },
+    {
+        "id": 10,
+        "username": "natalie_cole",
+        "email": "natalie.cole@example.com",
+        "role": "employee",
+        "organization": "Global Marketing Group",
+        "is_logged": false,
+        "last_connection": null,
+        "acceso_grupos": true,
+        "acceso_paquetes": true,
+        "acceso_vuelos": false
+    }
+]
