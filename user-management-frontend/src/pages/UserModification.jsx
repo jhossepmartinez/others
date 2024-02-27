@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
 import userUpdateRequest from "./Users/userUpdateRequest";
+import { validateUserModicationForm } from "./Users/validateUserModicationForm";
 
 export default function UserModification() {
     // let allowPutRequest = true;
@@ -31,124 +32,21 @@ export default function UserModification() {
     useEffect(() => {
         if (allowPutRequest) {
             userUpdateRequest(formInput, setSuccessResponse, setFailureResonse);
-            // updateUser();
             setAllowPutRequest(false);
         }
     }, [allowPutRequest, formError]);
 
-    // async function updateUser() {
-    //     const requestOptions = {
-    //         method: "PUT",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({
-    //             username: formInput.username,
-    //             password: formInput.password,
-    //         }),
-    //     };
-    //
-    //     try {
-    //         const response = await fetch(
-    //             `http://127.0.0.1:8000/api/users/${formInput.username}/`,
-    //             requestOptions,
-    //         );
-    //         const data = await response.json();
-    //         if (response.ok) {
-    //             console.log("Successfull PUT request", data);
-    //             setFailureResonse("");
-    //             setSuccessResponse(
-    //                 `Succesfully updated ${formInput.username} `,
-    //             );
-    //             setTimeout(() => {
-    //                 setSuccessResponse("");
-    //             }, 2000);
-    //         } else if (response.status === 404) {
-    //             setSuccessResponse("");
-    //             setFailureResonse(`User ${formInput.username} not found!`);
-    //             setTimeout(() => {
-    //                 setFailureResonse("");
-    //             }, 2000);
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //         setSuccessResponse("");
-    //         setFailureResonse("Server is down");
-    //         setTimeout(() => {
-    //             setFailureResonse("");
-    //         }, 2000);
-    //     }
-    // }
-
-    const validateFormInput = (event) => {
+    const validateUserModicationFormWrapper = (event) => {
         event.preventDefault();
-        let inputError = {
-            username: "",
-            password: "",
-            confirmPassword: "",
-        };
-
-        let errors = [];
-
-        if (!formInput.username) {
-            errors.push("Enter valid username");
-            setAllowPutRequest(false);
-            // allowPutRequest = false;
-        }
-        if (!formInput.password) {
-            errors.push("Password should not be empty");
-            setAllowPutRequest(false);
-            // allowPutRequest = false;
-        }
-        if (!formInput.confirmPassword) {
-            errors.push("Confirm Password should not be empty");
-            setAllowPutRequest(false);
-            // allowPutRequest = false;
-        }
-        if (formInput.confirmPassword !== formInput.password) {
-            errors.push("Password and confirm password should be the same");
-            setAllowPutRequest(false);
-            // allowPutRequest = false;
-        }
-
-        if (errors.length >= 0) {
-            setFormError({
-                ...inputError,
-                username: errors.includes("Enter valid username")
-                    ? "Enter valid username"
-                    : "",
-
-                password: errors.includes("Password should not be empty")
-                    ? "Password should not be empty"
-                    : errors.includes(
-                            "Password and confirm password should be the same",
-                        )
-                      ? "Password and confirm password should be the same"
-                      : "",
-                confirmPassword: errors.includes(
-                    "Confirm Password should not be empty",
-                )
-                    ? "Confirm Password should not be empty"
-                    : errors.includes(
-                            "Password and confirm password should be the same",
-                        )
-                      ? "Password and confirm password should be the same"
-                      : "",
-            });
-            if (errors.length === 0) {
-                setAllowPutRequest(true);
-            } else {
-                setAllowPutRequest(false);
-            }
-        }
-
-        console.log("errors:", errors);
-        console.log("formerror:", formError);
-
-        console.log(allowPutRequest);
+        validateUserModicationForm(formInput, setFormError, setAllowPutRequest);
     };
 
     return (
-        <div className="font-inter flex justify-center ">
-            <form className="w-[400px]" onSubmit={validateFormInput}>
+        <div className="font-inter flex justify-center">
+            <form
+                className="w-[400px]"
+                onSubmit={validateUserModicationFormWrapper}
+            >
                 <div className="space-y-3 w-full">
                     <div className="flex flex-col h-20 space-y-1">
                         <div className="space-y-1 w-full">
