@@ -5,7 +5,6 @@ import userUpdateRequest from "./Users/userUpdateRequest";
 import { validateUserModicationForm } from "./Users/validateUserModicationForm";
 
 export default function UserModification() {
-    // let allowPutRequest = true;
     const [allowPutRequest, setAllowPutRequest] = useState(false);
 
     const [successResponse, setSuccessResponse] = useState("");
