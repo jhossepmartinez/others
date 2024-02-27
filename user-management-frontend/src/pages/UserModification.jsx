@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
+import userUpdateRequest from "./Users/userUpdateRequest";
+
 export default function UserModification() {
-    let allowPutRequest = false;
+    // let allowPutRequest = true;
+    const [allowPutRequest, setAllowPutRequest] = useState(false);
 
     const [successResponse, setSuccessResponse] = useState("");
     const [failureResponse, setFailureResonse] = useState("");
@@ -25,6 +28,56 @@ export default function UserModification() {
         });
     };
 
+    useEffect(() => {
+        if (allowPutRequest) {
+            userUpdateRequest(formInput, setSuccessResponse, setFailureResonse);
+            // updateUser();
+            setAllowPutRequest(false);
+        }
+    }, [allowPutRequest, formError]);
+
+    // async function updateUser() {
+    //     const requestOptions = {
+    //         method: "PUT",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({
+    //             username: formInput.username,
+    //             password: formInput.password,
+    //         }),
+    //     };
+    //
+    //     try {
+    //         const response = await fetch(
+    //             `http://127.0.0.1:8000/api/users/${formInput.username}/`,
+    //             requestOptions,
+    //         );
+    //         const data = await response.json();
+    //         if (response.ok) {
+    //             console.log("Successfull PUT request", data);
+    //             setFailureResonse("");
+    //             setSuccessResponse(
+    //                 `Succesfully updated ${formInput.username} `,
+    //             );
+    //             setTimeout(() => {
+    //                 setSuccessResponse("");
+    //             }, 2000);
+    //         } else if (response.status === 404) {
+    //             setSuccessResponse("");
+    //             setFailureResonse(`User ${formInput.username} not found!`);
+    //             setTimeout(() => {
+    //                 setFailureResonse("");
+    //             }, 2000);
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //         setSuccessResponse("");
+    //         setFailureResonse("Server is down");
+    //         setTimeout(() => {
+    //             setFailureResonse("");
+    //         }, 2000);
+    //     }
+    // }
+
     const validateFormInput = (event) => {
         event.preventDefault();
         let inputError = {
@@ -37,15 +90,23 @@ export default function UserModification() {
 
         if (!formInput.username) {
             errors.push("Enter valid username");
+            setAllowPutRequest(false);
+            // allowPutRequest = false;
         }
         if (!formInput.password) {
             errors.push("Password should not be empty");
+            setAllowPutRequest(false);
+            // allowPutRequest = false;
         }
         if (!formInput.confirmPassword) {
             errors.push("Confirm Password should not be empty");
+            setAllowPutRequest(false);
+            // allowPutRequest = false;
         }
         if (formInput.confirmPassword !== formInput.password) {
             errors.push("Password and confirm password should be the same");
+            setAllowPutRequest(false);
+            // allowPutRequest = false;
         }
 
         if (errors.length >= 0) {
@@ -72,56 +133,17 @@ export default function UserModification() {
                       ? "Password and confirm password should be the same"
                       : "",
             });
-        }
-
-        console.log(errors);
-        console.log(formError);
-
-        async function updateUser() {
-            const requestOptions = {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    username: formInput.username,
-                    password: formInput.password,
-                }),
-            };
-
-            try {
-                const response = await fetch(
-                    `http://127.0.0.1:8000/api/users/${formInput.username}/`,
-                    requestOptions,
-                );
-                const data = await response.json();
-                if (response.ok) {
-                    console.log("Successfull PUT request", data);
-                    setFailureResonse("");
-                    setSuccessResponse(
-                        `Succesfully updated ${formInput.username} `,
-                    );
-                    setTimeout(() => {
-                        setSuccessResponse("");
-                    }, 2000);
-                } else if (response.status === 404) {
-                    setSuccessResponse("");
-                    setFailureResonse(`User ${formInput.username} not found!`);
-                    setTimeout(() => {
-                        setFailureResonse("");
-                    }, 2000);
-                }
-            } catch (error) {
-                console.error(error);
-                setSuccessResponse("");
-                setFailureResonse("Server is down");
-                setTimeout(() => {
-                    setFailureResonse("");
-                }, 2000);
+            if (errors.length === 0) {
+                setAllowPutRequest(true);
+            } else {
+                setAllowPutRequest(false);
             }
         }
 
-        if (allowPutRequest) {
-            updateUser();
-        }
+        console.log("errors:", errors);
+        console.log("formerror:", formError);
+
+        console.log(allowPutRequest);
     };
 
     return (
@@ -191,7 +213,7 @@ export default function UserModification() {
                         </p>
                     </div>
                     <div
-                        className={`flex space-x-2 transition-opacity duration-200 items-center pl-4 text-sm h-10 rounded font-medium ${failureResponse ? "opacity-100 bg-red-200 text-red-600" : "opacity-0"} ${successResponse ? "opacity-100 bg-green-200 text-green-700" : "opacity-0"}`}
+                        className={`flex space-x-2 transition-opacity duration-200 items-center pl-4 text-sm h-10 rounded font-medium ${failureResponse ? "opacity-100 bg-red-100 text-red-600" : "opacity-0"} ${successResponse ? "opacity-100 bg-green-100 text-green-700" : "opacity-0"}`}
                     >
                         <FaCheckCircle
                             color={
