@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
 import userUpdateRequest from "./Users/userUpdateRequest";
+import { validateUserModicationForm } from "./Users/validateUserModicationForm";
 
 export default function UserModification() {
     // let allowPutRequest = true;
@@ -31,52 +32,9 @@ export default function UserModification() {
     useEffect(() => {
         if (allowPutRequest) {
             userUpdateRequest(formInput, setSuccessResponse, setFailureResonse);
-            // updateUser();
             setAllowPutRequest(false);
         }
     }, [allowPutRequest, formError]);
-
-    // async function updateUser() {
-    //     const requestOptions = {
-    //         method: "PUT",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({
-    //             username: formInput.username,
-    //             password: formInput.password,
-    //         }),
-    //     };
-    //
-    //     try {
-    //         const response = await fetch(
-    //             `http://127.0.0.1:8000/api/users/${formInput.username}/`,
-    //             requestOptions,
-    //         );
-    //         const data = await response.json();
-    //         if (response.ok) {
-    //             console.log("Successfull PUT request", data);
-    //             setFailureResonse("");
-    //             setSuccessResponse(
-    //                 `Succesfully updated ${formInput.username} `,
-    //             );
-    //             setTimeout(() => {
-    //                 setSuccessResponse("");
-    //             }, 2000);
-    //         } else if (response.status === 404) {
-    //             setSuccessResponse("");
-    //             setFailureResonse(`User ${formInput.username} not found!`);
-    //             setTimeout(() => {
-    //                 setFailureResonse("");
-    //             }, 2000);
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //         setSuccessResponse("");
-    //         setFailureResonse("Server is down");
-    //         setTimeout(() => {
-    //             setFailureResonse("");
-    //         }, 2000);
-    //     }
-    // }
 
     const validateFormInput = (event) => {
         event.preventDefault();
@@ -147,8 +105,8 @@ export default function UserModification() {
     };
 
     return (
-        <div className="font-inter flex justify-center ">
-            <form className="w-[400px]" onSubmit={validateFormInput}>
+        <div className="font-inter flex justify-center">
+            <form className="w-[400px]" onSubmit={validateUserModicationForm}>
                 <div className="space-y-3 w-full">
                     <div className="flex flex-col h-20 space-y-1">
                         <div className="space-y-1 w-full">
